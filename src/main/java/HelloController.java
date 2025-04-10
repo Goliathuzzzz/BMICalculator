@@ -25,6 +25,8 @@ public class HelloController {
 
     private FuelConsumptionCalc fuelConsumptionCalc;
 
+    private String error= "error";
+
     public void initialize() {
         fuelConsumptionCalc = new FuelConsumptionCalc();
         rb = ResourceBundle.getBundle("messages", new Locale("en", "US"));
@@ -42,17 +44,17 @@ public class HelloController {
         try {
             distance = Double.parseDouble(distanceInput.getText());
         } catch (NumberFormatException e) {
-            lblErrorDistance.setText(rb.getString("error"));
+            lblErrorDistance.setText(rb.getString(error));
         }
         try {
             fuel = Double.parseDouble(fuelInput.getText());
         } catch (NumberFormatException e) {
-            lblErrorFuel.setText(rb.getString("error"));
+            lblErrorFuel.setText(rb.getString(error));
         }
         try {
             consumption = fuelConsumptionCalc.calculateFuelConsumption(distance, fuel);
         } catch (Exception e) {
-            lblResult.setText(rb.getString("error"));
+            lblResult.setText(rb.getString(error));
         }
         String formattedConsumption = String.format("%.2f", consumption);
         lblResult.setText(" " + formattedConsumption + " l/100Km ");
@@ -90,10 +92,10 @@ public class HelloController {
         btnCalculate.setText(resourceBundle.getString("calculate_fuel_consumption"));
         lblFuelConsumption.setText(resourceBundle.getString("fuel_consumption"));
         if (!lblErrorFuel.getText().isEmpty()) {
-            lblErrorFuel.setText(resourceBundle.getString("error"));
+            lblErrorFuel.setText(resourceBundle.getString(error));
         }
         if (!lblErrorDistance.getText().isEmpty()) {
-            lblErrorDistance.setText(resourceBundle.getString("error"));
+            lblErrorDistance.setText(resourceBundle.getString(error));
         }
     }
 }
